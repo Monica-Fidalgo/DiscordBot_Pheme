@@ -52,8 +52,7 @@ def gameprices(type,search,t):
                 for s,pr in zip(states,prices):
                     state = (s.text.replace("Nieuw","New").replace("Gebruikt","Used")+': '+pr.text)
                     price_info.append(state)
-                    discount_price = ''
-                results.append((title, price_info, url, discount_price))
+                results.append((title, price_info, url, ''))
 
             return results[:5]
 
@@ -69,8 +68,7 @@ def gameprices(type,search,t):
                 url = soup.find_all("a",attrs={"class": "search_result_row ds_collapse_flag"},href=True)[idx]['href']
                 try:
                     price = p.find("div", attrs={"class": "col search_price responsive_secondrow"}).text.split("\r\n")[1].strip()
-                    discount_price = ''
-                    results.append((title, price, url, discount_price))
+                    results.append((title, price, url, ''))
                 except: # If the game is on discount, the price on the webpage will be in a different class:
                     try:
                         price = p.find("div", attrs={"class": "col search_price discounted responsive_secondrow"}).text.split("\n")[1].strip().split("€")[0]+'€'
@@ -93,8 +91,7 @@ def gameprices(type,search,t):
             for s,pr in zip(states,prices):
                 state = (s.text.replace("Nieuw","New").replace("Gebruikt","Used")+': '+pr.text)
                 price_info.append(state)
-
-            result = [(title, price_info, search_url, discount_price)]
+            result = [(title, price_info, search_url, '')]
             return result
 
         elif type == 'digital':
